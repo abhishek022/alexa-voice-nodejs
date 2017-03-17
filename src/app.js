@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const verify = require('./verify');
 
 const REST_PORT = (process.env.PORT || 5000);
 const DEV_CONFIG = process.env.DEVELOPMENT_CONFIG == 'true';
@@ -18,12 +19,11 @@ app.get('/', function(req, res) {
     res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
 });
 
-app.post('/', (req, res) => {
+app.post('/alexa', (req, res) => {
 
     console.log('POST received at root');
     console.log(req);
     console.log(res);
-
 });
 
 app.listen(REST_PORT, function () {
