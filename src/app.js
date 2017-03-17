@@ -12,14 +12,19 @@ require('console-stamp')(console, 'yyyy.mm.dd HH:MM:ss.l');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(bodyParser.json({
+    verify: function getRawBody(req, res, buf) {
+        req.rawBody = buf.toString();
+    }
+}));
 
 app.get('/', function(req, res) {
     res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
 });
 
-app.post('/alexa', (req, res) => {
+app.post('/alexa', verify, (req, res) => {
 
     console.log('POST received at root');
     console.log(req);
