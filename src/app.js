@@ -13,6 +13,11 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+app.get('/', function(req, res) {
+    res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
+});
+
 app.post('/', (req, res) => {
 
     console.log('POST received at root');
