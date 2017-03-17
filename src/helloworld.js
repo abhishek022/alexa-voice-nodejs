@@ -2,64 +2,63 @@
 
 const VERSION = '1.0';
 
-module.exports = function(req, res) {
-    
-    console.log(req.body);
-
-    if (req.body.request.type === 'LaunchRequest') {
-        res.json(
-            buildResponse(
-                { dateRequested: true },
-                '<speak>Vinod,<break time="1s"/> Hello World!</speak>',
-                {},
-                false
-            )
-        );
-
-    } else if (req.body.request.type === 'SessionEndedRequest') {
-
-       if (req.body.request.reason === 'ERROR') {
-           console.error('Alexa ended the session due to an error');
-       }
-       /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-        Per Alexa docs, we shouldn't send ANY response here... weird, I know.
-        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-    }
-};
-
-function buildResponse(session, speech, card, end) {
+function buildSpeechletResponse(card, output, repromptText, shouldEndSession) {
     return {
-        version: VERSION,
-        sessionAttributes: session,
-        response: {
+        outputSpeech: {
+            type: "SSML",
+            ssml: output
+        },
+        card: card,
+        reprompt: {
             outputSpeech: {
-                type: 'SSML',
-                ssml: speech
+                type: "SSML",
+                ssml: repromptText
             },
-            card: card,
-            shouldEndSession: !!end
-        }
+        },
+        shouldEndSession,
     };
 }
 
+function buildResponse(sessionAttributes, speechletResponse) {
+    return {
+        version: '1.0',
+        sessionAttributes,
+        response: speechletResponse,
+    };
+}
 
-// var Alexa = require("alexa-sdk");
+module.exports = function(req, res) {
 
-// exports.handler = function(event, context, callback) {
-//     var alexa = Alexa.handler(event, context);
-//     alexa.registerHandlers(handlers);
-//     alexa.execute();
-// };
+    console.log(req.body);
 
-// var handlers = {
-//     'LaunchRequest': function () {
-//         this.emit('SayHello');
-//     },
-//     'HelloWorldIntent': function () {
-//         this.emit('SayHello')
-//     },
-//     'SayHello': function () {
-//         this.emit(':tell', 'Hello World!');
-//     }
-// };
+    let event = req.body;
+
+    try {
+        console.log(`event.session.application.applicationId=${event.session.application.applicationId}`);
+
+        if (event.session.new) {
+            onSessionStarted({ requestId: event.request.requestId }, event.session);
+        }
+
+        if (event.request.type === 'LaunchRequest') {
+            onLaunch(event.request,
+                event.session,
+                (sessionAttributes, speechletResponse) => {
+                    callback(null, buildResponse(sessionAttributes, speechletResponse));
+                });
+        } else if (event.request.type === 'IntentRequest') {
+            onIntent(event.request,
+                event.session,
+                (sessionAttributes, speechletResponse) => {
+                    callback(null, buildResponse(sessionAttributes, speechletResponse));
+                });
+        } else if (event.request.type === 'SessionEndedRequest') {
+            onSessionEnded(event.request, event.session);
+            callback();
+        }
+
+    } catch (err) {
+        callback(err);
+    }
+};
+
