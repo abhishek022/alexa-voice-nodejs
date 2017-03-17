@@ -21,6 +21,6 @@
     "alexa-sdk": "^1.0.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "console-stamp": "^0.2.1",
+    "console-stamp": "^0.2.1"
   }
 }
