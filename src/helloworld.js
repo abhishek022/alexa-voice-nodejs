@@ -3,6 +3,8 @@
 const VERSION = '1.0';
 
 module.exports = function(req, res) {
+    
+    console.log(req.body);
 
     if (req.body.request.type === 'LaunchRequest') {
         res.json(
