@@ -1,0 +1,22 @@
+{
+  "name": "alexa-voice-nodejs",
+  "version": "1.0.0",
+  "description": "Alexa Voice Skill Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexaware34186/alexa-voice-nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "alexa",
+    "skill"
+  ],
+  "author": "Hexaware.com",
+  "dependencies": {
+    "alexa-sdk": "^1.0.0"
+  }
+}
