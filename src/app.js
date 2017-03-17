@@ -4,6 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const verify = require('./verify');
 
+// custom module
+const helloworld = require('./helloworld');
+
 const REST_PORT = (process.env.PORT || 5000);
 const DEV_CONFIG = process.env.DEVELOPMENT_CONFIG == 'true';
 
@@ -24,33 +27,8 @@ app.get('/', function(req, res) {
     res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
 });
 
-app.post('/alexa', verify, (req, res) => {
-
-    console.log('POST received at root');
-    console.log(req);
-    console.log(res);
-});
+app.post('/alexa', verify, helloworld);
 
 app.listen(REST_PORT, function () {
     console.log('Rest service ready on port ' + REST_PORT);
 });
-
-// var Alexa = require("alexa-sdk");
-
-// exports.handler = function(event, context, callback) {
-//     var alexa = Alexa.handler(event, context);
-//     alexa.registerHandlers(handlers);
-//     alexa.execute();
-// };
-
-// var handlers = {
-//     'LaunchRequest': function () {
-//         this.emit('SayHello');
-//     },
-//     'HelloWorldIntent': function () {
-//         this.emit('SayHello')
-//     },
-//     'SayHello': function () {
-//         this.emit(':tell', 'Hello World!');
-//     }
-// };
