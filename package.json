@@ -18,6 +18,7 @@
   ],
   "author": "Hexaware.com",
   "dependencies": {
-    "alexa-sdk": "^1.0.0"
+    "alexa-sdk": "^1.0.0",
+    "express": "^4.13.4"
   }
 }
