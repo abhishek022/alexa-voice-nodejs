@@ -57,10 +57,16 @@ function onIntent(intentRequest, session, callback) {
     const intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if (intentName === 'GetCustomerArchitecture') {
-        getClaimStatus(intent, session, callback);
+    if (intentName === 'InputReferenceNumberIntent') {
+        doCheckIn(intent, session, callback);
     } else if (intentName === 'SatisfactoryIntent') {
         saySatisfactory(intent, session, callback);
+    } else if (intentName === 'InputOTPIntent') {
+        validateOTP(callback);
+    } else if (intentName === 'AMAZON.NoIntent') {
+        onFeedbackFalse(callback);
+    } else if (intentName === 'AMAZON.YesIntent') {
+        onFeedbackTrue(callback);
     } else if (intentName === 'AMAZON.HelpIntent') {
         getWelcomeResponse(callback);
     } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
