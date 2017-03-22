@@ -58,6 +58,9 @@ module.exports = function(req, res) {
         }
 
     } catch (err) {
+        console.log("\n--------------------------------------------");
+        console.log(err);
+        console.log("\n--------------------------------------------\n");
         callback(err);
     }
 };
