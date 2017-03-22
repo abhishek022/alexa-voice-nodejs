@@ -37,6 +37,49 @@ function onSessionStarted(sessionStartedRequest, session) {
 }
 
 
+/**
+ * Called when the user launches the skill without specifying what they want.
+ */
+function onLaunch(launchRequest, session, callback) {
+    console.log(`onLaunch requestId=${launchRequest.requestId}, sessionId=${session.sessionId}`);
+
+    // Dispatch to your skill's launch.
+    getWelcomeResponse(callback);
+}
+
+/**
+ * Called when the user specifies an intent for this skill.
+ */
+function onIntent(intentRequest, session, callback) {
+    console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
+
+    const intent = intentRequest.intent;
+    const intentName = intentRequest.intent.name;
+
+    // Dispatch to your skill's intent handlers
+    if (intentName === 'GetCustomerArchitecture') {
+        getClaimStatus(intent, session, callback);
+    } else if (intentName === 'SatisfactoryIntent') {
+        saySatisfactory(intent, session, callback);
+    } else if (intentName === 'AMAZON.HelpIntent') {
+        getWelcomeResponse(callback);
+    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
+        handleSessionEndRequest(callback);
+    } else {
+        throw new Error('Invalid intent');
+    }
+}
+
+/**
+ * Called when the user ends the session.
+ * Is not called when the skill returns shouldEndSession=true.
+ */
+function onSessionEnded(sessionEndedRequest, session) {
+    console.log(`onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}`);
+    // Add cleanup logic here
+}
+
+
 module.exports = function(req, res) {
 
     console.log(req.body);
