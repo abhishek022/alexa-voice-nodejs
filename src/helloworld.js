@@ -27,6 +27,16 @@ function buildResponse(sessionAttributes, speechletResponse) {
     };
 }
 
+// --------------- Events -----------------------
+
+/**
+ * Called when the session starts.
+ */
+function onSessionStarted(sessionStartedRequest, session) {
+    console.log(`onSessionStarted requestId=${sessionStartedRequest.requestId}, sessionId=${session.sessionId}`);
+}
+
+
 module.exports = function(req, res) {
 
     console.log(req.body);
