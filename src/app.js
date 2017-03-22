@@ -24,14 +24,17 @@ app.use(bodyParser.json({
 }));
 
 app.get('/', function(req, res) {
-    res.json({ message: 'The alexa voice skill is up and running test pourab.', since: (new Date()).toString() });
+    res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
 });
 
 app.post('/alexa/helloworld', verify, function(req, res){
     helloworld(req, res, function(optional, response){
-        console.log(optional);
-        console.log(response);
-        res.json(response);
+        if(optional){
+            res.json({ error: 'The alexa voice request failed with no response.'});
+        }
+        if(!optional and response){
+            res.json(response);
+        }        
     });
 });
 
