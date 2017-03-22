@@ -41,6 +41,19 @@ function getWelcomeResponse(callback) {
     		buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
 }
 
+function sayHelloWorld(callback){
+    const sessionAttributes = {};
+    const cardTitle = 'Hello Node.js!';
+    const speechOutput = '<speak>Hello Node.js Support</speak>';
+
+    const repromptText = '<speak>Hello again Node.js.</speak>';
+    const shouldEndSession = false;
+
+    callback(sessionAttributes,
+    		buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
+
+}
+
 
 // --------------- Events -----------------------
 
@@ -73,7 +86,7 @@ function onIntent(intentRequest, session, callback) {
 
     // Dispatch to your skill's intent handlers
     if (intentName === 'HelloWorldIntent') {
-        doCheckIn(intent, session, callback);
+        sayHelloWorld(intent, session, callback);
     } else if (intentName === 'SatisfactoryIntent') {
         saySatisfactory(intent, session, callback);
     } else if (intentName === 'InputOTPIntent') {
