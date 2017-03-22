@@ -101,7 +101,7 @@ function onSessionEnded(sessionEndedRequest, session) {
 }
 
 
-module.exports = function(req, res) {
+module.exports = function(req, res, callback) {
 
     console.log(req.body);
 
