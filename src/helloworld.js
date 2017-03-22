@@ -41,7 +41,7 @@ function getWelcomeResponse(callback) {
     		buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
 }
 
-function sayHelloWorld(callback){
+function sayHelloWorld(intent, session, callback){
     const sessionAttributes = {};
     const cardTitle = 'Hello Node.js!';
     const speechOutput = '<speak>Hello Node.js Support</speak>';
