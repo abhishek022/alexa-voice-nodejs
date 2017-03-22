@@ -27,7 +27,11 @@ app.get('/', function(req, res) {
     res.json({ message: 'The alexa voice skill is up and running test pourab.', since: (new Date()).toString() });
 });
 
-app.post('/alexa', verify, helloworld);
+app.post('/alexa/helloworld', verify, function(req, res){
+    helloworld(req, res, function(response){
+        res.json(response);
+    });
+});
 
 app.listen(REST_PORT, function () {
     console.log('Rest service ready on port ' + REST_PORT);
