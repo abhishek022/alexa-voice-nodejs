@@ -28,7 +28,8 @@ app.get('/', function(req, res) {
 });
 
 app.post('/alexa/helloworld', verify, function(req, res){
-    helloworld(req, res, function(response){
+    helloworld(req, res, function(optional, response){
+        console.log(optional);
         console.log(response);
         res.json(response);
     });
