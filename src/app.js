@@ -29,6 +29,8 @@ app.get('/', function(req, res) {
 
 app.post('/alexa/helloworld', verify, function(req, res){
     helloworld(req, res, function(response){
+        console.log(response);
+        console.log(res.json(response));
         res.json(response);
     });
 });
