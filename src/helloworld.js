@@ -27,6 +27,21 @@ function buildResponse(sessionAttributes, speechletResponse) {
     };
 }
 
+// --------------- Functions that control the skill's behavior -----------------------
+
+function getWelcomeResponse(callback) {
+    const sessionAttributes = {};
+    const cardTitle = 'Greetings from Node.js!';
+    const speechOutput = '<speak>Greetings from Node.js Support</speak>';
+
+    const repromptText = '<speak>Please tell me your query.</speak>';
+    const shouldEndSession = false;
+
+    callback(sessionAttributes,
+    		buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
+}
+
+
 // --------------- Events -----------------------
 
 /**
@@ -57,7 +72,7 @@ function onIntent(intentRequest, session, callback) {
     const intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if (intentName === 'InputReferenceNumberIntent') {
+    if (intentName === 'HelloWorldIntent') {
         doCheckIn(intent, session, callback);
     } else if (intentName === 'SatisfactoryIntent') {
         saySatisfactory(intent, session, callback);
