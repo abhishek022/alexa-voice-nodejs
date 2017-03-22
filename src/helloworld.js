@@ -27,7 +27,7 @@ function buildResponse(sessionAttributes, speechletResponse) {
     };
 }
 
-// --------------- Functions that control the skill's behavior -----------------------
+// --------------- Mandatory Functions that control the skill's behavior -----------------------
 
 function getWelcomeResponse(callback) {
     const sessionAttributes = {};
@@ -40,6 +40,21 @@ function getWelcomeResponse(callback) {
     callback(sessionAttributes,
     		buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
 }
+
+function handleSessionEndRequest(callback) {
+    const cardTitle = 'Session Ended';
+    const speechOutput = '<speak>Happy to help you!</speak>';
+    // Setting this to true ends the session and exits the skill.
+    const shouldEndSession = true;
+
+    callback({}, buildSpeechletResponse(null, speechOutput, null, shouldEndSession));
+}
+
+function saySatisfactory(intent, session, callback) {
+    handleSessionEndRequest(callback);
+}
+
+// --------------- Functions that control the skill's behavior -----------------------
 
 function sayHelloWorld(intent, session, callback){
     const sessionAttributes = {};
