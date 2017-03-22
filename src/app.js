@@ -24,7 +24,7 @@ app.use(bodyParser.json({
 }));
 
 app.get('/', function(req, res) {
-    res.json({ message: 'The alexa voice skill is up and running.', since: (new Date()).toString() });
+    res.json({ message: 'The alexa voice skill is up and running test pourab.', since: (new Date()).toString() });
 });
 
 app.post('/alexa', verify, helloworld);
