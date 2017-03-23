@@ -1,0 +1,22 @@
+[
+    {
+    "flight_number":"ET3678",
+      "wifi":"yes",
+      "food":"yes"
+      },
+    {
+    "flight_number":"ET3456",
+    "wifi":"yes",
+    "food":"no"
+    },
+    {
+    "flight_number":"ET3556",
+    "wifi":"yes",
+    "food":"no"
+    },
+    {
+    "flight_number":"ET8976",
+    "wifi":"yes",
+    "food":"yes"
+    }
+]
